@@ -1,3 +1,97 @@
+x = lambda a, b, c: a + b + c
+print(x(3, 4, 5))
+
+
+def decorator1(func):
+    def wrapper(*args, **kwargs):
+        print("Decorator 1: Before function call")
+        result = func(*args, **kwargs)
+        print("Decorator 1: After function call")
+        return result
+
+    return wrapper
+
+
+def decorator2(func):
+    def wrapper(*args, **kwargs):
+        print("Decorator 2: Before function call")
+        result = func(*args, **kwargs)
+        print("Decorator 2: After function call")
+        return result
+
+    return wrapper
+
+
+@decorator1
+@decorator2
+def add(a, b):
+    return a + b
+
+
+result = add(2, 3)
+print("Result", result)
+
+
+def change_case(func):
+    def my_inner():
+        return func().upper()
+
+    return my_inner
+
+
+def add_greeting(func):
+    def my_inner():
+        return "Hello, " + func() + " Have a good day!"
+
+    return my_inner
+
+
+@change_case
+@add_greeting
+def my_function():
+    return "Tobias"
+
+
+print(my_function())
+
+
+def change_case(n):
+    def change_case(func):
+        def my_inner(*args, **kwargs):
+            if n == 1:
+                a = func(*args, **kwargs).lower()
+            else:
+                a = func(*args, **kwargs).upper()
+            return a
+
+        return my_inner
+
+    return change_case
+
+
+@change_case(2)
+def my_function(name):
+    return "Hello, " + name
+
+
+print(my_function("amin"))
+
+
+def change_case(func):
+    def my_inner(*args, **kwargs):
+        return func(*args, **kwargs).upper()
+
+    return my_inner
+
+
+@change_case
+def my_function(name):
+    return "Hello, " + name
+
+
+print(my_function("Hazzaz"))
+
+
 def change_case(func):
     def inner_change(name):
         return func(name).upper()
@@ -30,6 +124,7 @@ def tri_recursion(k):
 
 print("Recursion Example Results:")
 tri_recursion(6)
+
 
 def my_function(*kids):
     for kid in kids:
