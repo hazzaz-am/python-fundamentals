@@ -1,22 +1,41 @@
-i = 3
+a = range(1, 20, 1)
+b = range(1, 5)
+c = range(16, 0, -1)
 
-while i != 0:
+
+for i in c:
     print(i)
-    i -= 1
 
-for _ in range(3):
-    print("Meow")
+d = "Hazzaz"
+dd = ""
 
-for j in range(11):
-    print(j)
+for i in range(0, len(d)):
+    print(d[i])
 
-for idx in [1, 2, 3]:
-    print(idx)
+for char in d:
+    print(char)
 
-while True:
-    n = int(input("What's n: "))
-    if n > 0:
-        break
+print(d[::-1])
+for char in range(len(d) - 1, -1, -1):
+    dd += d[char]
 
-for _ in range(n):
-    print("meow")
+print(dd)
+
+e = "asd978@#$234"
+alpha = 0
+digit = 0
+special_char = 0
+
+for i in e:
+    if i.isalpha():
+        alpha += 1
+    elif i.isdigit():
+        digit += 1
+    else :
+        special_char += 1
+
+print(alpha)
+print(digit)
+print(special_char)
+
+
