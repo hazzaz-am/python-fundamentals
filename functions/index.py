@@ -100,7 +100,7 @@ def change_case(func):
 
 
 @change_case
-def my_function(name):
+def my_function(name: str):
     return f"hello, {name}"
 
 
@@ -141,3 +141,4 @@ def my_function(child3, child2, child1):
 
 
 my_function(child1="Emil", child2="Tobias", child3="Linus")
+
