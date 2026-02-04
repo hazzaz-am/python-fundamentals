@@ -44,4 +44,3 @@ class ChittagongFactory(DhakaFactory):
 
 fc = ChittagongFactory("Cloth", "Black", 2)
 
-print(fc.getChittagongInformation())
