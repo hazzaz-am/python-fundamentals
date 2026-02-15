@@ -16,33 +16,64 @@ class Bank:
   try:
     if Path(database).exists():
       with open(database) as fs:
-       data = json.load(fs.read())
+       data = json.loads(fs.read())
     else:
       print("no such file exits")
   except Exception as err:
     print(f"an exception occurred as {err}")
 
+  @staticmethod
+  def update():
+    with open(Bank.database, 'w') as fs:
+      fs.write(json.dumps(Bank.data))
+
+  @classmethod
+  def __create_account_number(cls):
+    char = random.choices(string.ascii_letters, k = 3)
+    int = random.choices(string.digits, k = 3)
+    sp_char = random.choices("!@#$%^&*(){}[]'';?/", k = 1)
+    id_num = char + int + sp_char
+    random.shuffle(id_num)
+    return "".join(id_num)
+
   def create_account(self):
-    data = {
+    info = {
       "name": input("What's your name? "),
       "age": int(input("What's your age? ")),
       "email": input("What's your email? "),
       "pin": int(input("Enter your 4 digit PIN: ")),
-      "accountNo": 1234,
+      "accountNo": Bank.__create_account_number(),
       "balance": 0
     }
 
-    if data["age"] < 18 or data["pin"] != 4:
+    if info["age"] < 18 or len(str(info["pin"])) != 4:
       print("Sorry you can't create your account")
     else:
       print("account created successfully")
-      for i in data:
-        print(f"{i} : {data[i]}")
+      for i in info:
+        print(f"{i} : {info[i]}")
       print("please note down your account number")
+
+      Bank.data.append(info)
+      Bank.update()
 
 
   def deposit_money(self):
-    pass
+    account_number = input("Please tell me your account number! ")
+    pin = int(input("Enter your pin "))
+
+    user_data = [i for i in Bank.data if i["accountNo"] == account_number and i["pin"] == pin]
+
+    if user_data == False:
+      print("Sorry your data not found")
+    else:
+      amount = int(input("Enter your deposit amount "))
+      if amount > 10000 or amount < 500:
+        print("Sorry the amount is too big or too low to deposit")
+      else:
+        user_data[0]["balance"] += amount
+        Bank.update()
+        print("Balance updated successfully")
 
   def withdraw_money(self):
     pass
