@@ -1,18 +1,4 @@
 [
-	{
-		"name": "Amin",
-		"age": 19,
-		"email": "amin@gmail.com",
-		"pin": 1234,
-		"accountNo": "2V8b]m1",
-		"balance": 0
-	},
-	{
-		"name": "Hazzaz",
-		"age": 24,
-		"email": "hazzaz@gmail.com",
-		"pin": 1234,
-		"accountNo": "f$9i8o7",
-		"balance": 2000
-	}
+	{ "name": "Amin", "age": 19, "email": "amin@gmail.com", "pin": 1234, "accountNo": "2V8b]m1", "balance": 0 },
+	{ "name": "Hazzaz", "age": 24, "email": "hazzaz@gmail.com", "pin": 1234, "accountNo": "f$9i8o7", "balance": 1500 }
 ]

@@ -57,7 +57,6 @@ class Bank:
       Bank.data.append(info)
       Bank.update()
 
-
   def deposit_money(self):
     account_number = input("Please tell me your account number! ")
     pin = int(input("Enter your pin "))
@@ -76,16 +75,47 @@ class Bank:
         print("Balance updated successfully")
 
   def withdraw_money(self):
-    pass
+    account_num = input("What is your account number ? ")
+    pin = int(input("Enter your pin number- "))
+
+    user_data = [i for i in Bank.data if i["accountNo"] == account_num and i["pin"] == pin]
+
+    if user_data == False:
+      print("Sorry, Your account not found")
+    else:
+      amount = int(input("Enter your withdraw amount- "))
+      if amount > 10000 or amount < 500:
+        print("Sorry, Your can't withdraw more than 10,000 and less than 500")
+      else:
+        print(user_data)
+        user_data[0]["balance"] -= amount
+        Bank.update()
+        print(f"{amount} is deducted from your account successfully")
+
+
 
   def see_account_details(self):
-    pass
+    account_num = input("Enter your account number: ")
+    pin = int(input("Enter your pin number: "))
+
+    user_data = [i for i in Bank.data if i["accountNo"] == account_num  and i["pin"] == pin]
+
+    if user_data == False:
+      print("Account Not Found")
 
   def update_account_details(self):
     pass
 
   def delete_account(self):
-    pass
+    account_num = input("Enter your account number: ")
+    pin = int(input("Enter your pin number: "))
+
+    user_data = [i for i in Bank.data if i["accountNo"] == account_num  and i["pin"] == pin]
+
+    if user_data == False:
+      print("Sorry, Your Account Not Found!")
+    else:
+      print("Delete your account")
 
 
 user = Bank()
