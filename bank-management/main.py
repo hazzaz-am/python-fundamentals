@@ -39,9 +39,9 @@ class Bank:
   def create_account(self):
     info = {
       "name": input("What's your name? "),
-      "age": int(input("What's your age? ")),
       "email": input("What's your email? "),
       "pin": int(input("Enter your 4 digit PIN: ")),
+      "age": int(input("What's your age? ")),
       "accountNo": Bank.__create_account_number(),
       "balance": 0
     }
@@ -102,9 +102,51 @@ class Bank:
 
     if user_data == False:
       print("Account Not Found")
+    else:
+      print("This is your information: ")
+      print("-------------------------------")
+      print("-------------------------------\n\n\n")
+      for i in user_data[0]:
+        print(f"{i} is {user_data[0][i]}")
 
   def update_account_details(self):
-    pass
+    account_num = input("Enter your account number: ")
+    pin = int(input("Enter your pin number: "))
+
+    user_data = [i for i in Bank.data if i["accountNo"] == account_num  and i["pin"] == pin]
+    
+    if user_data == False:
+      print("Account not found")
+    else:
+      print("You can't update your age, account number and balance")
+
+      new_data = {
+        "name": input("Enter your updated name or press ENTER to skip: "),
+        "email": input("Enter your updated mail or press ENTER to skip: "),
+        "pin": int(input("Enter your updated pin or press ENTER to skip: ")),
+      }
+
+      if new_data["name"] == "":
+        new_data["name"] = user_data[0]["name"]
+      if new_data["email"] == "":
+        new_data["email"] = user_data[0]["email"]
+      if new_data["pin"] == "":
+        new_data["pin"] = user_data[0]["pin"]
+      
+      new_data["age"] = user_data[0]["age"]
+      new_data["accountNo"] = user_data[0]["accountNo"]
+      new_data["balance"] = user_data[0]["balance"]
+
+      for i in new_data:
+        if new_data[i] == user_data[0][i]:
+          continue
+        else:
+          user_data[0][i] = new_data[i]
+      
+      Bank.update()
+      print("Account updated successfully")
+
+
 
   def delete_account(self):
     account_num = input("Enter your account number: ")
@@ -115,7 +157,16 @@ class Bank:
     if user_data == False:
       print("Sorry, Your Account Not Found!")
     else:
-      print("Delete your account")
+      check = input("Pres Y/y for DELETE or Press N/n for SKIP: ")
+      
+      if check == "y" or check == "Y":
+        index = Bank.data.index(user_data[0])
+        Bank.data.pop(index)
+        Bank.update()
+        print("Your account deleted successfully")
+      else:
+        print("Skipped")
+      
 
 
 user = Bank()
